@@ -4,91 +4,50 @@ using System.Text;
 
 namespace pr8_chel
 {
-    //class Primes : ISeries
-    //{
-    //    int start;
-    //    int val;
-    //    public Primes()
-    //    {
-    //        start = 2;
-    //        val = 2;
-    //    }
-    //    public int Next
-    //    {
-    //        get { return GetNext(); }
-    //    }
-    //    public int GetNext()
-    //    {
-    //        int i, j;
-    //        bool isprime;
-    //        val++;
-    //        for (i = val; i < 100000; i++)
-    //        {
-    //            isprime = true;
-    //            for (j = 2; j < i/j; j++)
-    //            {
-    //                if((i%j)==0)
-    //                {
-    //                    isprime = false;
-    //                    break;
-    //                }
-    //            }
-    //        }
-    //        return val;
-    //    }
-    //    public void Reset()
-    //    {
-    //        val = start;
-    //    }
-    //    public void SetStart(int x)
-    //    {
-    //        start = x;
-    //        val = start;
-    //    }
-    //}
-    class Primes : ISeries
+    class Primes : ISeries, ICloneable, IComparable
     {
-        int start;
-        int val;
         public Primes()
         {
-            start = 1;
-            val = 1;
+            start = 2;
+            val = start;//
         }
-        public int GetNext()
+        public Primes(int _start)
         {
-            int i, j;
-            bool isprime;
-            val++;
-            for (i = val; i < 28; i++)
-            {
-                isprime = true;
-                for (j = 2; j <= i / j; j++)
-                {
-                    if ((i % j) == 0)
-                    {
-                        isprime = false;
-                        break;
-                    }
-                }
-                if (isprime)
-                {
-                    val = i;
-                    break;
-                }
-            }
-            return val;
+            start = _start;
+            val = start;
         }
-
+        private int start;
+        public int val;
+        public object Clone()
+        {
+            Primes new1 = new Primes(start);
+            new1.val = val;
+            return new1;
+        }
+        public int CompareTo(object primes)
+        {
+            Primes prim = (Primes)primes;
+            if (val < prim.val) return 1;
+            if (val > prim.val) return -1;
+            return 0;
+        }
+        public bool IsPrimeNumber(int number)
+        {
+            for (int i = 2; i < number; i++)
+            {
+                if (number % i == 0)
+                    return false;
+            }
+            return true;
+        }
         public void Reset()
         {
             val = start;
         }
 
-        public void SetStart(int x)
+        public void SetStart(int _start)
         {
-            start = x;
-            val = start;
+            start = _start;
         }
     }
 }

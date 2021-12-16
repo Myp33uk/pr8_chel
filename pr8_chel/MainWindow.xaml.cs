@@ -25,6 +25,7 @@ namespace pr8_chel
             InitializeComponent();
         }
         Primes primeOb = new Primes();
+        Primes primeOb2 = new Primes();
         ISeries ob;
         private void PreviewTextBoxInput(object sender, TextCompositionEventArgs e)
         {
@@ -35,10 +36,12 @@ namespace pr8_chel
         }
         private void Knopka(object sender, RoutedEventArgs e)
         {
-            //for (int i = 0; i < 5; i++)
             {
+                int n = 20;
                 ob = primeOb;
-                Aga.Text = "Следующее простое число = " + Convert.ToString(ob.GetNext());
+                for (var i = 2; i <= n; i++)
+                    if (ob.IsPrimeNumber(i))
+                        Aga.Items.Add(Convert.ToString(i));
             }
         }
     }

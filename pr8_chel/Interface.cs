@@ -4,9 +4,17 @@ using System.Text;
 
 namespace pr8_chel
 {
+    interface IComparable
+    {
+        int CompareTo(object obj);
+    }
+    interface ICloneable
+    {
+        Object Clone();
+    }
     interface ISeries
     {
-        int GetNext();
+        bool IsPrimeNumber(int number);
         void Reset();
         void SetStart(int x);
     }

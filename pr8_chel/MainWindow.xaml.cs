@@ -15,34 +15,38 @@ using System.Windows.Shapes;
 
 namespace pr8_chel
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
-    {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
-        Primes primeOb = new Primes();
-        Primes primeOb2 = new Primes();
-        ISeries ob;
-        private void PreviewTextBoxInput(object sender, TextCompositionEventArgs e)
-        {
-            if (!int.TryParse(e.Text, out int addvalue))
-            {
-                e.Handled = true;
-            }
-        }
-        private void Knopka(object sender, RoutedEventArgs e)
-        {
-            {
-                int n = 20;
-                ob = primeOb;
-                for (var i = 2; i <= n; i++)
-                    if (ob.IsPrimeNumber(i))
-                        Aga.Items.Add(Convert.ToString(i));
-            }
-        }
-    }
+	/// <summary>
+	/// Interaction logic for MainWindow.xaml
+	/// </summary>
+	public partial class MainWindow : Window
+	{
+		public MainWindow()
+		{
+			InitializeComponent();
+		}
+		Primes primes = new Primes();
+		Primes primeOb2 = new Primes();
+		private Evens _evens = new Evens();
+		ISeries ob;
+		private void PreviewTextBoxInput(object sender, TextCompositionEventArgs e)
+		{
+			if (!int.TryParse(e.Text, out int addvalue))
+			{
+				e.Handled = true;
+			}
+		}
+		private void Knopka(object sender, RoutedEventArgs e)
+		{
+			Print(primes, 20);
+		}
+
+		private void Print(ISeries siries, int count)
+		{
+			for (int i = 0; i < count; i++)
+			{
+				Aga.Items.Add(siries.GetCurrent());
+				siries.MoveNext();
+			}
+		}
+	}
 }

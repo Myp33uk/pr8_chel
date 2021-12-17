@@ -6,48 +6,56 @@ namespace pr8_chel
 {
     class Primes : ISeries, ICloneable, IComparable
     {
-        public Primes()
-        {
-            start = 2;
-            val = start;//
-        }
-        public Primes(int _start)
-        {
-            start = _start;
-            val = start;
-        }
-        private int start;
-        public int val;
-        public object Clone()
-        {
-            Primes new1 = new Primes(start);
-            new1.val = val;
-            return new1;
-        }
-        public int CompareTo(object primes)
-        {
-            Primes prim = (Primes)primes;
-            if (val < prim.val) return 1;
-            if (val > prim.val) return -1;
-            return 0;
-        }
-        public bool IsPrimeNumber(int number)
-        {
-            for (int i = 2; i < number; i++)
-            {
-                if (number % i == 0)
-                    return false;
-            }
-            return true;
-        }
-        public void Reset()
-        {
-            val = start;
-        }
+        private const int _start = 2;
+        private int _current;
 
-        public void SetStart(int _start)
-        {
-            start = _start;
-        }
-    }
+		public Primes()
+		{
+			_current = _start;
+		}
+
+		public object Clone()
+		{
+			return (Primes)MemberwiseClone();
+		}
+
+		public int CompareTo(object obj)
+		{
+			Primes primes = (Primes)obj;
+
+			return GetCurrent() - primes.GetCurrent();
+		}
+
+		public int GetCurrent()
+		{
+			return _current;
+		}
+
+		public bool MoveNext()
+		{
+			int countDivider = 0;
+
+			while (countDivider != 2)
+			{
+				_current++;
+				countDivider = 0;
+
+				for (int i = 1; i <= _current; i++)
+				{
+					if (_current % i == 0)
+					{
+						countDivider++;
+					}
+				}
+				
+			}
+
+			return true;
+		}
+
+		public void Reset()
+		{
+			_current = _start;
+		}
+	}
 }
